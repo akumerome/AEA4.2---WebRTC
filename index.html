@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="simplepeer.min.js"></script> <!--lo ponemos dentro del comunication manager en vue, como una variable global-->
+</head>
+<body>
+    <script>
+        const p = new SimplePeer({
+          initiator: location.hash === '#1', //1 soy iniciador, 0 no lo soy
+          trickle: false
+        })
+  
+        p.on('error', err => console.log('error', err))
+        
+        p.on('signal', data => { //sobre cargo evento signal, cuando recibo una señal pasala a cadena de texto
+          console.log('SIGNAL', JSON.stringify(data))
+          document.querySelector('#outgoing').textContent = JSON.stringify(data) //le pongo el contenido dentro de una caja de texto
+        })
+  
+        document.querySelector('form').addEventListener('submit', ev => { 
+          ev.preventDefault() //cuando me apretes el botón de submit no hagas lo que haces por defecto
+          p.signal(JSON.parse(document.querySelector('#incoming').value)) // 
+        })
+  
+        p.on('connect', () => {
+          console.log('CONNECT')
+          p.send('whatever' + Math.random()) //cuando se haya conectado envia texto
+        })
+  
+        p.on('data', data => { // evento recibido como data
+          console.log('data: ' + data)
+        })
+      </script>
+</body>
+</html>
