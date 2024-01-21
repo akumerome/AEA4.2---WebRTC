@@ -1,4 +1,9 @@
-export const p = new SimplePeer({
-    initiator: location.hash === '#1', //1 soy iniciador, 0 no lo soy
+export const peer_initiator = new SimplePeer({
+    initiator: true, //true soy iniciador, false no lo soy
+    trickle: false
+});
+
+export const peer_not_initiator = new SimplePeer({
+    initiator: false,
     trickle: false
 });

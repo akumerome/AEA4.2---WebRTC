@@ -5,7 +5,8 @@ export const useAppStore = defineStore('app', {
   state: () => ({
 
     nom: '',
-    arrayNoms: []
+    arrayNoms: [],
+    sala: []
 
   }),
   actions: {
@@ -17,6 +18,9 @@ export const useAppStore = defineStore('app', {
     getArrayNoms() {
       return this.arrayNoms
     },
+    getSala() {
+      return this.sala
+    },
     
     //setters
     setNom(nom) {
@@ -24,6 +28,9 @@ export const useAppStore = defineStore('app', {
     },
     setArrayNoms(arrayNoms) {
       this.arrayNoms = arrayNoms
+    },
+    setSala(sala) {
+      this.sala = sala
     },
 
   },
